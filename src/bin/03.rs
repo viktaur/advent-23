@@ -46,23 +46,20 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 fn add_part_num(current: &mut String, part: &mut Vec<u32>, part_num: &mut bool) {
-    match current.parse() {
-        Ok(n) => {
-            if *part_num {
-                part.push(n)
-            }
+    if let Ok(n) = current.parse() {
+        if *part_num {
+            part.push(n)
+        }
 
-            // reset variables
-            current.clear();
-            *part_num = false;
-        },
-        _ => ()
+        // reset variables
+        current.clear();
+        *part_num = false;
     }
 }
 
 /// Returns true if adjacent symbol found
 fn explore_adj(
-    i: usize, j: usize, max_i: usize, max_j: usize, scheme: &Vec<Vec<Char>>
+    i: usize, j: usize, max_i: usize, max_j: usize, scheme: &[Vec<Char>]
 ) -> bool {
     let s_i = if i == 0 { 0 } else { i-1 };
     let s_j = if j == 0 { 0 } else { j-1 };
@@ -77,9 +74,8 @@ fn explore_adj(
             }
 
             let adj = scheme.get(x).unwrap().get(y).unwrap();
-            match adj {
-                Char::Symbol => { return true; },
-                _ => ()
+            if let Char::Symbol = adj {
+                return true;
             }
         }
     }

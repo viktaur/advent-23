@@ -5,8 +5,8 @@ pub fn part_one(input: &str) -> Option<u32> {
     Some(
         input.lines()
             .map(|l| {
-                let game_id = l.split(":").nth(0).unwrap()
-                    .split(" ").nth(1).unwrap()
+                let game_id = l.split(':').next().unwrap()
+                    .split(' ').nth(1).unwrap()
                     .parse::<u32>().unwrap();
 
                 let mut games = l.split(":").nth(1).unwrap().split(";");
