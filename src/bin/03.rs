@@ -1,4 +1,4 @@
-use std::cmp::{max, min};
+use std::cmp::{min};
 advent_of_code::solution!(3);
 
 pub enum Char {
@@ -11,9 +11,9 @@ pub fn part_one(input: &str) -> Option<u32> {
     let mut scheme: Vec<Vec<Char>> = vec![];
     let mut part: Vec<u32> = vec![];
 
-    for (i, line) in input.lines().enumerate() {
+    for (_i, line) in input.lines().enumerate() {
         let mut v = vec![];
-        for (j, c) in line.chars().enumerate() {
+        for (_j, c) in line.chars().enumerate() {
             match c {
                 '0'..='9' => v.push(Char::Num(c)),
                 '.' => v.push(Char::Dot),
@@ -83,7 +83,7 @@ fn explore_adj(
     false
 }
 
-pub fn part_two(input: &str) -> Option<u32> {
+pub fn part_two(_input: &str) -> Option<u32> {
     None
 }
 

@@ -7,7 +7,7 @@ pub fn part_one(input: &str) -> Option<u32> {
             .map(|l| {
                 let num_chars = l.chars().filter(|c| c.is_numeric());
 
-                num_chars.clone().nth(0).unwrap().to_digit(10).unwrap() * 10 +
+                num_chars.clone().next().unwrap().to_digit(10).unwrap() * 10 +
                     num_chars.clone().last().unwrap().to_digit(10).unwrap()
             }).sum()
     )
@@ -18,7 +18,7 @@ pub fn part_two(input: &str) -> Option<u32> {
         input.lines()
             .map(|l| {
                 let nums = parse_line(l);
-                nums.get(0).unwrap() * 10 + nums.last().unwrap()
+                nums.first().unwrap() * 10 + nums.last().unwrap()
             }).sum()
     )
 }
@@ -30,7 +30,7 @@ fn parse_line(line: &str) -> Vec<u32> {
         s.push(c);
         ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
             .map(|w| if s.contains(w) {
-                digits.push(letters_to_digit(&w).unwrap());
+                digits.push(letters_to_digit(w).unwrap());
                 s.clear();
             });
 

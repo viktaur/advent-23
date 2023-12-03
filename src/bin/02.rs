@@ -9,11 +9,11 @@ pub fn part_one(input: &str) -> Option<u32> {
                     .split(' ').nth(1).unwrap()
                     .parse::<u32>().unwrap();
 
-                let mut games = l.split(":").nth(1).unwrap().split(";");
+                let mut games = l.split(':').nth(1).unwrap().split(';');
                 if games.all(|gs| {
-                    gs.split(",").all(|g| valid_n_cubes(
-                        g.trim().split(" ").nth(0).unwrap(),
-                        g.trim().split(" ").nth(1).unwrap()
+                    gs.split(',').all(|g| valid_n_cubes(
+                        g.trim().split(' ').next().unwrap(),
+                        g.trim().split(' ').nth(1).unwrap()
                     ))
                 }) { game_id } else { 0 }
             })
@@ -35,13 +35,13 @@ pub fn part_two(input: &str) -> Option<u32> {
     Some(
         input.lines()
             .map(|l| {
-                let set = l.split(":").nth(1).unwrap().split(";");
+                let set = l.split(':').nth(1).unwrap().split(';');
                 let (mut r, mut g, mut b) = (0, 0, 0);
 
                 for s in set {
-                    for c in s.split(",") {
-                        let n: u32 = c.trim().split(" ").nth(0).unwrap().parse().unwrap();
-                        let colour = c.trim().split(" ").nth(1).unwrap();
+                    for c in s.split(',') {
+                        let n: u32 = c.trim().split(' ').next().unwrap().parse().unwrap();
+                        let colour = c.trim().split(' ').nth(1).unwrap();
                         match colour {
                             "red" => r = max(r, n),
                             "green" => g = max(g, n),
