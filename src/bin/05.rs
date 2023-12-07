@@ -20,13 +20,13 @@ pub fn part_two(input: &str) -> Option<u64> {
     let mut mappings_vec_rev = mappings_vec.clone();
     mappings_vec_rev.reverse();
 
-    (0..u64::MAX).find(|&loc| {
+    (0..).find(|&loc| {
         let gen_seed = mappings_vec_rev.iter()
             .fold(loc, |n, m| get_source(n, m).unwrap());
 
         seeds.0.chunks(2).any(|pair| {
-            let s = *pair.get(0).unwrap();
-            let r = *pair.get(1).unwrap();
+            let s = pair[0];
+            let r = pair[1];
 
             (s..s+r).contains(&gen_seed)
         })
@@ -35,11 +35,7 @@ pub fn part_two(input: &str) -> Option<u64> {
 
 fn get_source(n: u64, mappings: &Mappings) -> Option<u64> {
     for l in mappings.0.iter() {
-        let (dest, source, length) = (
-            *l.get(0).unwrap(),
-            *l.get(1).unwrap(),
-            *l.get(2).unwrap()
-        );
+        let (dest, source, length) = (l[0], l[1], l[2]);
 
         if dest <= n && n < dest + length {
             return Some(source + (n-dest));
@@ -50,11 +46,7 @@ fn get_source(n: u64, mappings: &Mappings) -> Option<u64> {
 
 fn convert_number(n: u64, mappings: &Mappings) -> Option<u64> {
     for l in mappings.0.iter() {
-        let (dest, source, length) = (
-            *l.get(0).unwrap(),
-            *l.get(1).unwrap(),
-            *l.get(2).unwrap()
-        );
+        let (dest, source, length) = (l[0], l[1], l[2]);
 
         if source <= n && n < source + length {
             return Some(dest + (n-source));
