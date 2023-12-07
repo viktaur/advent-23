@@ -17,17 +17,6 @@ pub fn part_one(input: &str) -> Option<u64> {
 // Takes a while
 pub fn part_two(input: &str) -> Option<u64> {
     let (seeds, mappings_vec) = parse_almanac(input).unwrap();
-
-    // let seeds = Seeds(
-    //     seeds.0.chunks(2).fold(vec![], |mut v, pair| {
-    //         let s = *pair.get(0).unwrap();
-    //         let r = *pair.get(1).unwrap();
-    //
-    //         v.extend(s..s+r);
-    //         v
-    //     })
-    // );
-
     let mut mappings_vec_rev = mappings_vec.clone();
     mappings_vec_rev.reverse();
 
