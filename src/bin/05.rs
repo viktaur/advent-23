@@ -14,29 +14,36 @@ pub fn part_one(input: &str) -> Option<u64> {
     }).min()
 }
 
+// Takes a while
 pub fn part_two(input: &str) -> Option<u64> {
     let (seeds, mappings_vec) = parse_almanac(input).unwrap();
 
-    let seeds = Seeds(
-        seeds.0.chunks(2).fold(vec![], |mut v, pair| {
-            let s = *pair.get(0).unwrap();
-            let r = *pair.get(1).unwrap();
-
-            v.extend(s..s+r);
-            v
-        })
-    );
+    // let seeds = Seeds(
+    //     seeds.0.chunks(2).fold(vec![], |mut v, pair| {
+    //         let s = *pair.get(0).unwrap();
+    //         let r = *pair.get(1).unwrap();
+    //
+    //         v.extend(s..s+r);
+    //         v
+    //     })
+    // );
 
     let mut mappings_vec_rev = mappings_vec.clone();
     mappings_vec_rev.reverse();
 
-    (0..u64::MAX).find(|&loc| seeds.0.contains(
-        &mappings_vec_rev.iter()
-            .fold(loc, |n, m| get_source(n, m).unwrap())
-    ))
+    (0..u64::MAX).find(|&loc| {
+        let gen_seed = mappings_vec_rev.iter()
+            .fold(loc, |n, m| get_source(n, m).unwrap());
+
+        seeds.0.chunks(2).any(|pair| {
+            let s = *pair.get(0).unwrap();
+            let r = *pair.get(1).unwrap();
+
+            (s..s+r).contains(&gen_seed)
+        })
+    })
 }
 
-// TODO: Reimplement this recursively
 fn get_source(n: u64, mappings: &Mappings) -> Option<u64> {
     for l in mappings.0.iter() {
         let (dest, source, length) = (
