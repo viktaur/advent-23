@@ -22,8 +22,12 @@ pub fn part_one(input: &str) -> Option<u32> {
             steps += 1;
 
             match i {
-                Instruction::Left => { current_node = hash_map.get(&current_node).unwrap().clone().0 },
-                Instruction::Right => { current_node = hash_map.get(&current_node).unwrap().clone().1 },
+                Instruction::Left => {
+                    current_node = hash_map.get(&current_node).unwrap().clone().0
+                },
+                Instruction::Right => {
+                    current_node = hash_map.get(&current_node).unwrap().clone().1
+                },
             }
 
             if current_node.0.eq("ZZZ") {
@@ -49,8 +53,12 @@ pub fn part_two(input: &str) -> Option<u64> {
                     steps += 1;
 
                     match i {
-                        Instruction::Left => { current_node = hash_map.get(&current_node).unwrap().clone().0 },
-                        Instruction::Right => { current_node = hash_map.get(&current_node).unwrap().clone().1 }
+                        Instruction::Left => {
+                            current_node = hash_map.get(&current_node).unwrap().clone().0
+                        },
+                        Instruction::Right => {
+                            current_node = hash_map.get(&current_node).unwrap().clone().1
+                        }
                     }
 
 
