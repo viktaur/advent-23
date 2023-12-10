@@ -4,7 +4,7 @@ pub fn part_one(input: &str) -> Option<i32> {
     Some(
         input.lines().map(|l| {
             find_history_value(
-            l.split_whitespace().map(|n| { n.parse::<i32>().unwrap() }).collect()
+                l.split_whitespace().map(|n| { n.parse::<i32>().unwrap() }).collect()
             )
         }).sum()
     )
@@ -44,10 +44,12 @@ fn find_history_value(history: Vec<i32>) -> i32 {
 fn find_history_value_2(history: Vec<i32>) -> i32 {
     let new_history = diff_row(&history);
 
-    match new_history.last() {
-        Some(0) => *history.first().unwrap(),
-        Some(_) => history.first().unwrap() - find_history_value_2(new_history),
-        None => panic!()
+    history.first().unwrap() - {
+        match new_history.last() {
+            Some(0) => 0,
+            Some(_) => find_history_value_2(new_history),
+            None => panic!()
+        }
     }
 }
 
