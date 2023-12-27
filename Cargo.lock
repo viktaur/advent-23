@@ -6,6 +6,7 @@ version = 3
 name = "advent_of_code"
 version = "0.9.2"
 dependencies = [
+ "itertools",
  "num",
  "pico-args",
  "prse",
